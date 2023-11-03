@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class Tiger extends Pet {
 
-    private static final int MAX_HUNGER = 5;
-    private static final int MAX_HAPPINESS = 5;
-    private static final int MAX_TIRENESS = 5;
+    private static final int MAX_HUNGER = 10;
+    private static final int MAX_HAPPINESS = 8;
+    private static final int MAX_TIRENESS = 7;
     private static final int MAX_DIRTINESS = 5;
 
     public Tiger(String name) {

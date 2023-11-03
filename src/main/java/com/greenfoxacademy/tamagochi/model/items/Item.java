@@ -5,8 +5,9 @@ public abstract class Item {
 
     private int id;
     private String name;
+    private String imagePath;
 
-    public Item(String name) {
+    public Item(String name, String imagePath) {
         initId();
         this.name = name;
     }

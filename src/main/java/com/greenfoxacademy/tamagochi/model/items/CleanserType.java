@@ -1,15 +1,15 @@
-package com.greenfoxacademy.tamagochi.model.pets;
+package com.greenfoxacademy.tamagochi.model.items;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum PetType {
+public enum CleanserType {
 
-    FOX, DOG, TIGER;
+    SPONGE, BRUSH;
 
     public static List<String> getTypes(){
         List<String> record = new ArrayList<>();
-        for (PetType t : PetType.values()){
+        for (CleanserType t : CleanserType.values()){
             record.add(t.toString());
         }
         return record;

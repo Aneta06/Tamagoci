@@ -7,9 +7,9 @@ import java.util.Random;
 public class Fox extends Pet {
 
     private static final int MAX_HUNGER = 5;
-    private static final int MAX_HAPPINESS = 5;
+    private static final int MAX_HAPPINESS = 10;
     private static final int MAX_TIRENESS = 5;
-    private static final int MAX_DIRTINESS = 5;
+    private static final int MAX_DIRTINESS = 7;
 
 
     public Fox(String name) {

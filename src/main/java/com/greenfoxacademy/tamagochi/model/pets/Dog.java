@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class Dog extends Pet {
 
-    private static final int MAX_HUNGER = 5;
-    private static final int MAX_HAPPINESS = 5;
-    private static final int MAX_TIRENESS = 5;
-    private static final int MAX_DIRTINESS = 5;
+    private static final int MAX_HUNGER = 8;
+    private static final int MAX_HAPPINESS = 8;
+    private static final int MAX_TIRENESS = 8;
+    private static final int MAX_DIRTINESS = 10;
 
     public Dog(String name) {
         super(name,

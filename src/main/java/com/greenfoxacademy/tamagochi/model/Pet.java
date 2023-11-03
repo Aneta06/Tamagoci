@@ -1,5 +1,6 @@
 package com.greenfoxacademy.tamagochi.model;
 
+import com.greenfoxacademy.tamagochi.model.pets.PetType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,23 +13,25 @@ public abstract class Pet implements PetActions  {
 
     private String name;
     private int hunger;
-    private int hapiness;
+    private int happiness;
     private int dirtiness;
     private int cleanliness;
     private int tireness;
-    private String greetMessage;
     private String image;
+    private PetType type;
+    private static final int WEARINESS = 1;
+    private static final int STARVATION = 2;
+    private static final int STAINING = new Random().nextInt(3) + 1;
+    private static final int UNHAPPINESS = 4;
 
-
-
-    public Pet(String name, int hunger, int hapiness, int tireness, int dirtiness, String greetMessage, String imag) {
+    public Pet(String name, int hunger, int happiness, int tireness, int dirtiness, String imag, PetType type) {
         this.name = name;
         this.hunger = hunger;
-        this.hapiness = hapiness;
+        this.happiness = happiness;
         this.dirtiness = dirtiness;
         this.tireness = tireness;
-        this.greetMessage = greetMessage;
         this.image = imag;
+        this.type = type;
     }
 
 
@@ -37,17 +40,18 @@ public abstract class Pet implements PetActions  {
     public String greet() {
         return String.format("Hello I'am %s and I'am your new %s",
                 this.name,
-                this.petType);
+                this.type);
     }
 
     @Override
     public void eat(Edible edible) {
-        this.hunger -= edible.saturation;
+        this.hunger -= edible.disposeFood();
     }
 
     @Override
     public void clean(Washing washing) {
-        this.dirtiness -= washing.effectivity;
+        this.dirtiness -= washing.wash();
+        this.happiness -= UNHAPPINESS;
     }
 
     @Override
@@ -57,7 +61,9 @@ public abstract class Pet implements PetActions  {
 
     @Override
     public void play(Entertaining entertaining) {
-        this.hapiness += entertaining.entertainmentLevel;
-
+        this.happiness += entertaining.entertain();
+        this.tireness += WEARINESS;
+        this.hunger += STARVATION;
+        this.dirtiness += STAINING;
     }
 }

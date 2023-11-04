@@ -13,16 +13,22 @@ public class ItemRepo {
     private List<Item> items;
 
     public ItemRepo() {
-        this.items = new ArrayList<>(10);
+        this.items = new ArrayList<>(16);
+        items.add(new Sponge());
         items.add(new Bone());
+        items.add(new Brush());
+        items.add(new Sausage());
         items.add(new Ball());
         items.add(new SoftToy());
         items.add(new Apple());
         items.add(new Meat());
+        items.add(new Meat());
         items.add(new Sausage());
         items.add(new Brush());
+        items.add(new SoftToy());
         items.add(new Sponge());
         items.add(new Apple());
+        items.add(new Sausage());
         items.add(new Ball());
     }
 
@@ -31,5 +37,7 @@ public class ItemRepo {
                 .filter(i -> i.getID() == itemID)
                 .findFirst();
     }
+
+    public List<Item> getItems() { return this.items; }
 
 }

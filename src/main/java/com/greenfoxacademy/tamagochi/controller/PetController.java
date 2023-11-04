@@ -43,7 +43,7 @@ public class PetController {
             model.addAttribute("dirtiness", optPet.get().getDirtiness());
             model.addAttribute("maxdirtiness", optPet.get().getMaxDirtiness());
 
-            model.addAttribute("itemPool", itemService.getItems());
+            model.addAttribute("itemPool", itemService.getItems().getItems());
 
 
             model.addAttribute("wasSuccessfullyFound", true);
@@ -53,15 +53,17 @@ public class PetController {
         return "viewPet";
     }
 
-    @GetMapping("/pet/use")
-    public String useItem(@RequestParam("petID") int petID,
+    @PostMapping("/pet/use")
+    public String useItem(Model model,
+                          @RequestParam("petID") int petID,
                           @RequestParam("itemID") int itemID) {
         Optional<Pet> optPet = petService.getPets().getPet(petID);
         Optional<Item> optItem = itemService.getItems().getItem(itemID);
         if (optPet.isPresent() && optItem.isPresent()) {
             optPet.get().use(optItem.get());
         }
-        return "viewPet";
+        model.addAttribute("petID", petID);
+        return "redirect:/pet/view?petID=" + petID;
     }
 
 

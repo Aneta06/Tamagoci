@@ -50,7 +50,12 @@
             </div>
         </main>
         <footer>
-
+            <div class="interactiveContainer" th:each="item : ${itemPool}">
+                <div class="imageContainer">
+                    <img th:src="@{${item.getImagePath()}}" th:alt="${item.getName()}" />
+                </div>
+                <h3 class="name" th:text="${item.getName()}"></h3>
+            </div>
         </footer>
     </body>
 </html>

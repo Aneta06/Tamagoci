@@ -1,8 +1,11 @@
 package com.greenfoxacademy.tamagochi.model.items;
 
+import com.greenfoxacademy.tamagochi.model.Usable;
 import com.greenfoxacademy.tamagochi.model.Washing;
 
-public abstract class Cleanser extends Item implements Washing {
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+
+public abstract class Cleanser extends Item implements Washing, Usable {
 
     private final int EFFECTIVITY;
     private final CleanserType TYPE;
@@ -17,5 +20,10 @@ public abstract class Cleanser extends Item implements Washing {
     @Override
     public int wash() {
         return this.EFFECTIVITY;
+    }
+
+    @Override
+    public int use(){
+        return this.wash();
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ItemRepo {
@@ -24,5 +25,11 @@ public class ItemRepo {
         items.add(new Apple());
         items.add(new Ball());
     }
-    public List<Item> getItems() { return items; }
+
+    public Optional<Item> getItem(int itemID){
+        return items.stream()
+                .filter(i -> i.getID() == itemID)
+                .findFirst();
+    }
+
 }

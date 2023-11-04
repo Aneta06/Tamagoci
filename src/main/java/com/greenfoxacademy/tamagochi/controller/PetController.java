@@ -1,5 +1,6 @@
 package com.greenfoxacademy.tamagochi.controller;
 
+import com.greenfoxacademy.tamagochi.model.items.Item;
 import com.greenfoxacademy.tamagochi.model.pets.Pet;
 import com.greenfoxacademy.tamagochi.service.ItemService;
 import com.greenfoxacademy.tamagochi.service.PetService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
@@ -49,5 +51,17 @@ public class PetController {
         }
         return "viewPet";
     }
+
+    @PostMapping("/pet/use")
+    public String useItem(@RequestParam("petID") int petID,
+                          @RequestParam("itemID") int itemID) {
+        Optional<Pet> optPet = petService.getPets().getPet(petID);
+        Optional<Item> optItem = itemService.getItems().getItem(itemID);
+        if (optPet.isPresent() && optItem.isPresent()) {
+            optPet.get().use(optItem.get());
+        }
+        return "viewPet";
+    }
+
 
 }

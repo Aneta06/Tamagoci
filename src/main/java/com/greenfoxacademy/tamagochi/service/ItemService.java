@@ -14,5 +14,5 @@ public class ItemService {
     @Autowired
     private ItemRepo items;
 
-    public List<Item> getItems() { return items.getItems(); }
+    public ItemRepo getItems() { return items; }
 }

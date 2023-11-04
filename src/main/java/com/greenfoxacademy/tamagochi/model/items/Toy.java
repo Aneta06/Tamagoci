@@ -1,8 +1,9 @@
 package com.greenfoxacademy.tamagochi.model.items;
 
 import com.greenfoxacademy.tamagochi.model.Entertaining;
+import com.greenfoxacademy.tamagochi.model.Usable;
 
-public abstract class Toy extends Item implements Entertaining {
+public abstract class Toy extends Item implements Entertaining, Usable {
 
     private final int ENTERTAINMENT_LEVEL;
     private final ToyType TYPE;
@@ -15,5 +16,10 @@ public abstract class Toy extends Item implements Entertaining {
     @Override
     public int entertain() {
         return this.ENTERTAINMENT_LEVEL;
+    }
+
+    @Override
+    public int use(){
+        return this.entertain();
     }
 }

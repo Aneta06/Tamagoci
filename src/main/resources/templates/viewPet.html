@@ -50,7 +50,7 @@
             </div>
         </main>
         <footer>
-            <div class="interactiveContainer" th:each="item : ${itemPool}">
+            <div th:action="/pet/use" th:method="post" class="interactiveContainer" th:each="item : ${itemPool}">
                 <div class="smallImageContainer">
                     <img class="small" th:src="@{${item.getImagePath()}}" th:alt="${item.getName()}" />
                 </div>

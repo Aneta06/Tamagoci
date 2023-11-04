@@ -1,9 +1,7 @@
 package com.greenfoxacademy.tamagochi.model.pets;
 
-import com.greenfoxacademy.tamagochi.model.Edible;
-import com.greenfoxacademy.tamagochi.model.Entertaining;
-import com.greenfoxacademy.tamagochi.model.PetActions;
-import com.greenfoxacademy.tamagochi.model.Washing;
+import com.greenfoxacademy.tamagochi.model.*;
+import com.greenfoxacademy.tamagochi.model.items.Item;
 import com.greenfoxacademy.tamagochi.model.pets.PetType;
 import lombok.Getter;
 import lombok.Setter;
@@ -97,5 +95,17 @@ public abstract class Pet implements PetActions {
         this.tireness += WEARINESS;
         this.hunger += STARVATION;
         this.dirtiness += STAINING;
+    }
+
+    public void use(Item item) {
+        if (item instanceof Edible) {
+            this.eat((Edible) item);
+        }
+        if(item instanceof Washing){
+            this.clean((Washing) item);
+        }
+        if(item instanceof Entertaining){
+            this.play((Entertaining) item);
+        }
     }
 }

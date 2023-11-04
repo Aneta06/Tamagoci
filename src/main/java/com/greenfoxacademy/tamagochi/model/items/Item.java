@@ -29,4 +29,8 @@ public abstract class Item {
     public String getImagePath() {
         return this.imagePath;
     }
+
+    public int getID() { return this.id; }
+
+
 }

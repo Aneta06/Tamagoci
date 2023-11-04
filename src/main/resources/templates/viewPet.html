@@ -50,11 +50,17 @@
             </div>
         </main>
         <footer>
-            <div th:action="/pet/use" th:method="post" class="interactiveContainer" th:each="item : ${itemPool}">
-                <div class="smallImageContainer">
-                    <img class="small" th:src="@{${item.getImagePath()}}" th:alt="${item.getName()}" />
-                </div>
-                <h3 class="name" th:text="${item.getName()}"></h3>
+            <div th:each="item : ${itemPool}">
+            <form action="'/pet/use?petID=' + ${petID} + '&itemID=' + ${item.getID()}'" method="get">
+                <button type="submit" style="border: none; background: none; padding: 0;">
+                    <div class="interactiveContainer">
+                        <div class="smallImageContainer">
+                            <img class="small" th:src="@{${item.getImagePath()}}" th:alt="${item.getName()}" />
+                        </div>
+                        <h3 class="name" th:text="${item.getName()}"></h3>
+                    </div>
+                </button>
+            </form>
             </div>
         </footer>
     </body>

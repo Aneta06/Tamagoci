@@ -26,6 +26,7 @@ public class PetController {
         Optional<Pet> optPet = petService.getPets().getPet(petID);
         if (optPet.isPresent()) {
             model.addAttribute("name", optPet.get().getName());
+            model.addAttribute("petID", optPet.get().getId());
             model.addAttribute("imagePath", optPet.get().getImage());
             model.addAttribute("type", optPet.get().getType());
             model.addAttribute("description", optPet.get().getDescription());
@@ -52,7 +53,7 @@ public class PetController {
         return "viewPet";
     }
 
-    @PostMapping("/pet/use")
+    @GetMapping("/pet/use")
     public String useItem(@RequestParam("petID") int petID,
                           @RequestParam("itemID") int itemID) {
         Optional<Pet> optPet = petService.getPets().getPet(petID);

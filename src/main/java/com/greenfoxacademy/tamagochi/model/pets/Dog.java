@@ -1,7 +1,5 @@
 package com.greenfoxacademy.tamagochi.model.pets;
 
-import com.greenfoxacademy.tamagochi.model.Pet;
-
 import java.util.Random;
 
 public class Dog extends Pet {

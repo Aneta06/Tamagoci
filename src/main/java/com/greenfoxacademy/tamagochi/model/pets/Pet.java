@@ -1,5 +1,9 @@
-package com.greenfoxacademy.tamagochi.model;
+package com.greenfoxacademy.tamagochi.model.pets;
 
+import com.greenfoxacademy.tamagochi.model.Edible;
+import com.greenfoxacademy.tamagochi.model.Entertaining;
+import com.greenfoxacademy.tamagochi.model.PetActions;
+import com.greenfoxacademy.tamagochi.model.Washing;
 import com.greenfoxacademy.tamagochi.model.pets.PetType;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +12,11 @@ import java.util.Random;
 
 @Getter
 @Setter
-public abstract class Pet implements PetActions  {
+public abstract class Pet implements PetActions {
 
+    private static int ID = 1;
 
+    private int id;
     private String name;
     private int hunger;
     private int happiness;
@@ -19,12 +25,14 @@ public abstract class Pet implements PetActions  {
     private int tireness;
     private String image;
     private PetType type;
-    private static final int WEARINESS = 1;
-    private static final int STARVATION = 2;
-    private static final int STAINING = new Random().nextInt(3) + 1;
-    private static final int UNHAPPINESS = 4;
+
+    private static final int WEARINESS = 1; // for each play()
+    private static final int STARVATION = 2; // for each play()
+    private static final int STAINING = new Random().nextInt(3) + 1; // for each play()
+    private static final int UNHAPPINESS = 4; // for each clean()
 
     public Pet(String name, int hunger, int happiness, int tireness, int dirtiness, String imag, PetType type) {
+        initId();
         this.name = name;
         this.hunger = hunger;
         this.happiness = happiness;
@@ -34,7 +42,9 @@ public abstract class Pet implements PetActions  {
         this.type = type;
     }
 
-
+    private void initId(){
+        this.id = ID++;
+    }
 
     @Override
     public String greet() {

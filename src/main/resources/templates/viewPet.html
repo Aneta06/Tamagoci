@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>View Pet</title>
+        <link rel="stylesheet" href="mainstyle.css">
+    </head>
+    <body>
+        <header>
+            <h1>Pet Details</h1>
+        </header>
+        <main>
+            <div class="container">
+                <div class="imageContainer">
+                    <img th:src="@{${imagePath}}" th:alt="${name}" />
+                </div>
+                <h3 class="name" th:text="${name}"></h3>
+                <p class="happiness" th:text="${happiness}"></p>
+            </div>
+        </main>
+    </body>
+</html>

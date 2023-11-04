@@ -1,7 +1,7 @@
 package com.greenfoxacademy.tamagochi.model.items;
 
 public abstract class Item {
-    private static int Id = 1;
+    private static int ID = 1;
 
     private int id;
     private String name;
@@ -12,6 +12,6 @@ public abstract class Item {
         this.name = name;
     }
     private void initId(){
-        this.id = Id++;
+        this.id = ID++;
     }
 }

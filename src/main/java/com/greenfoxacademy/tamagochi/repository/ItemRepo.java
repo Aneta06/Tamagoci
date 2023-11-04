@@ -40,4 +40,6 @@ public class ItemRepo {
 
     public List<Item> getItems() { return this.items; }
 
+    public ItemRepo getItemRepo() { return this; }
+
 }

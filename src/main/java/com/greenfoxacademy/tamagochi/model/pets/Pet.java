@@ -3,6 +3,7 @@ package com.greenfoxacademy.tamagochi.model.pets;
 import com.greenfoxacademy.tamagochi.model.*;
 import com.greenfoxacademy.tamagochi.model.items.Item;
 import com.greenfoxacademy.tamagochi.model.pets.PetType;
+import com.greenfoxacademy.tamagochi.repository.ItemRepo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,7 +60,6 @@ public abstract class Pet implements PetActions {
         this.image = imag;
         this.type = type;
         this.description = description;
-
     }
 
     private void initId(){
@@ -76,17 +76,20 @@ public abstract class Pet implements PetActions {
     @Override
     public void eat(Edible edible) {
         this.hunger -= edible.disposeFood();
+        correctStats();
     }
 
     @Override
     public void clean(Washing washing) {
         this.dirtiness -= washing.wash();
         this.happiness -= UNHAPPINESS;
+        correctStats();
     }
 
     @Override
     public void sleep() {
         this.tireness -= new Random().nextInt(3) + 1;
+        correctStats();
     }
 
     @Override
@@ -95,6 +98,7 @@ public abstract class Pet implements PetActions {
         this.tireness += WEARINESS;
         this.hunger += STARVATION;
         this.dirtiness += STAINING;
+        correctStats();
     }
 
     public void use(Item item) {
@@ -107,5 +111,19 @@ public abstract class Pet implements PetActions {
         if(item instanceof Entertaining){
             this.play((Entertaining) item);
         }
+    }
+
+    private void correctStats() {
+        if (this.hunger > this.maxHunger) { this.hunger = this.maxHunger; }
+        if (this.hunger < 0) { this.hunger = 0; }
+
+        if (this.happiness > this.maxHappiness) { this.happiness = this.maxHappiness; }
+        if (this.happiness < 0) { this.happiness = 0; }
+
+        if (this.dirtiness > this.maxDirtiness) { this.dirtiness = this.maxDirtiness; }
+        if (this.dirtiness < 0) { this.dirtiness = 0; }
+
+        if (this.tireness > this.maxTireness) { this.tireness = this.maxTireness; }
+        if (this.tireness < 0) { this.tireness = 0; }
     }
 }

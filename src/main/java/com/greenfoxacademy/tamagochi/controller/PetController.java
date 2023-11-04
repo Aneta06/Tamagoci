@@ -61,6 +61,7 @@ public class PetController {
         Optional<Item> optItem = itemService.getItems().getItem(itemID);
         if (optPet.isPresent() && optItem.isPresent()) {
             optPet.get().use(optItem.get());
+            itemService.getItems().getItems().remove(optItem.get());
         }
         model.addAttribute("petID", petID);
         return "redirect:/pet/view?petID=" + petID;

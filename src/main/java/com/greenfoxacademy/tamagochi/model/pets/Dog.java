@@ -4,18 +4,18 @@ import java.util.Random;
 
 public class Dog extends Pet {
 
-    private static final int MAX_HUNGER = 8;
-    private static final int MAX_HAPPINESS = 8;
-    private static final int MAX_TIRENESS = 8;
-    private static final int MAX_DIRTINESS = 10;
-
-    public Dog(String name) {
+    public Dog(String name, String description) {
         super(name,
-                new Random().nextInt(MAX_HUNGER),
-                new Random().nextInt(MAX_HAPPINESS),
-                new Random().nextInt(MAX_TIRENESS),
-                new Random().nextInt(MAX_DIRTINESS),
+                PetsStats.DOG_MAX_HUNGER,
+                PetsStats.DOG_MAX_HAPPINESS,
+                PetsStats.DOG_MAX_TIRENESS,
+                PetsStats.DOG_MAX_DIRTINESS,
+                new Random().nextInt(PetsStats.DOG_MAX_HUNGER),
+                new Random().nextInt(PetsStats.DOG_MAX_HAPPINESS),
+                new Random().nextInt(PetsStats.DOG_MAX_TIRENESS),
+                new Random().nextInt(PetsStats.DOG_MAX_DIRTINESS),
                 "images/dog.jpg",
-                PetType.DOG);
+                PetType.DOG,
+                description);
     }
 }

@@ -21,25 +21,47 @@ public abstract class Pet implements PetActions {
     private int hunger;
     private int happiness;
     private int dirtiness;
-    private int cleanliness;
     private int tireness;
     private String image;
     private PetType type;
+    private int maxHappiness;
+    private int maxHunger;
+    private int maxTireness;
+    private int maxDirtiness;
+    private String description;
 
     private static final int WEARINESS = 1; // for each play()
     private static final int STARVATION = 2; // for each play()
     private static final int STAINING = new Random().nextInt(3) + 1; // for each play()
     private static final int UNHAPPINESS = 4; // for each clean()
 
-    public Pet(String name, int hunger, int happiness, int tireness, int dirtiness, String imag, PetType type) {
+    public Pet(String name,
+               int maxHunger,
+               int maxHappiness,
+               int maxTireness,
+               int maxDirtiness,
+               int hunger,
+               int happiness,
+               int tireness,
+               int dirtiness,
+               String imag,
+               PetType type,
+               String description
+               ) {
         initId();
         this.name = name;
+        this.maxHappiness = maxHappiness;
+        this.maxHunger = maxHunger;
+        this.maxTireness = maxTireness;
+        this.maxDirtiness = maxDirtiness;
         this.hunger = hunger;
         this.happiness = happiness;
         this.dirtiness = dirtiness;
         this.tireness = tireness;
         this.image = imag;
         this.type = type;
+        this.description = description;
+
     }
 
     private void initId(){

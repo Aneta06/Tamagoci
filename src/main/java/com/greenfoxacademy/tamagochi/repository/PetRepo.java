@@ -16,7 +16,7 @@ public class PetRepo {
 
     public PetRepo() {
         this.pets = new ArrayList<>();
-        pets.add(new Fox("Pavel"));
+        pets.add(new Fox("Pavel", "Hello I'am Fox" ));
     }
 
     public void addPet(Pet pet) {

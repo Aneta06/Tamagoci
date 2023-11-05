@@ -19,29 +19,29 @@
             </div>
             <div class="container">
                 <h3 class="name">STATS</h3>
-                <div class="statbar">
+                <div class="statBar">
                     <p class="stat">HUNGER : </p>
                     <p class="stat" th:text="${hunger}"></p>
                     <p class="stat"> / </p>
-                    <p class="stat" th:text="${maxhunger}"></p>
+                    <p class="stat" th:text="${maxHunger}"></p>
                 </div>
-                <div class="statbar">
+                <div class="statBar">
                     <p class="stat">HAPPINESS : </p>
                     <p class="stat" th:text="${happiness}"></p>
                     <p class="stat"> / </p>
-                    <p class="stat" th:text="${maxhappiness}"></p>
+                    <p class="stat" th:text="${maxHappiness}"></p>
                 </div>
-                <div class="statbar">
+                <div class="statBar">
                     <p class="stat">DIRTINESS : </p>
                     <p class="stat" th:text="${dirtiness}"></p>
                     <p class="stat"> / </p>
-                    <p class="stat" th:text="${maxdirtiness}"></p>
+                    <p class="stat" th:text="${maxDirtiness}"></p>
                 </div>
-                <div class="statbar">
-                    <p class="stat">TIRENESS : </p>
-                    <p class="stat" th:text="${tireness}"></p>
+                <div class="statBar">
+                    <p class="stat">TIREDNESS : </p>
+                    <p class="stat" th:text="${tiredness}"></p>
                     <p class="stat"> / </p>
-                    <p class="stat" th:text="${maxtireness}"></p>
+                    <p class="stat" th:text="${maxTiredness}"></p>
                 </div>
             </div>
         </main>
@@ -57,6 +57,9 @@
                     </div>
                 </button>
             </form>
+            <div class="panel">
+                <a th:href="@{/pets}" class="quitButton">BACK</a>
+            </div>
         </footer>
     </body>
 </html>

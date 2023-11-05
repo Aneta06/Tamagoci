@@ -37,11 +37,11 @@ public abstract class Pet implements PetActions {
     public Pet(String name,
                int maxHunger,
                int maxHappiness,
-               int maxTireness,
+               int maxTiredness,
                int maxDirtiness,
                int hunger,
                int happiness,
-               int tireness,
+               int tiredness,
                int dirtiness,
                String imag,
                PetType type,
@@ -51,12 +51,12 @@ public abstract class Pet implements PetActions {
         this.name = name;
         this.maxHappiness = maxHappiness;
         this.maxHunger = maxHunger;
-        this.maxTireness = maxTireness;
+        this.maxTireness = maxTiredness;
         this.maxDirtiness = maxDirtiness;
         this.hunger = hunger;
         this.happiness = happiness;
         this.dirtiness = dirtiness;
-        this.tireness = tireness;
+        this.tireness = tiredness;
         this.image = imag;
         this.type = type;
         this.description = description;
@@ -76,6 +76,7 @@ public abstract class Pet implements PetActions {
     @Override
     public void eat(Edible edible) {
         this.hunger -= edible.disposeFood();
+        this.dirtiness += STAINING;
         correctStats();
     }
 

@@ -33,13 +33,13 @@ public class PetController {
             model.addAttribute("description", optPet.get().getDescription());
 
             model.addAttribute("hunger", optPet.get().getHunger());
-            model.addAttribute("maxhunger", optPet.get().getMaxHunger());
+            model.addAttribute("maxHunger", optPet.get().getMaxHunger());
             model.addAttribute("happiness", optPet.get().getHappiness());
-            model.addAttribute("maxhappiness", optPet.get().getMaxHappiness());
-            model.addAttribute("tireness", optPet.get().getTireness());
-            model.addAttribute("maxtireness", optPet.get().getMaxTireness());
+            model.addAttribute("maxHappiness", optPet.get().getMaxHappiness());
+            model.addAttribute("tiredness", optPet.get().getTireness());
+            model.addAttribute("maxTiredness", optPet.get().getMaxTireness());
             model.addAttribute("dirtiness", optPet.get().getDirtiness());
-            model.addAttribute("maxdirtiness", optPet.get().getMaxDirtiness());
+            model.addAttribute("maxDirtiness", optPet.get().getMaxDirtiness());
 
             model.addAttribute("itemPool", itemService.getItems().getItems());
         } else {

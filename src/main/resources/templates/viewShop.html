@@ -9,7 +9,7 @@
             <h1 class="logo">Item Shop</h1>
         </header>
         <main>
-            <form th:each="item : ${shopItemsPool}" action="/shop/buy" method="post">
+            <form th:each="item : ${shopItemsPool}" action="/shop/toCart" method="post">
                 <input type="hidden" name="petID" th:value="${petID}" />
                 <button type="submit" name="itemID" th:value="${item.getID()}" style="border: none; background: none; padding: 0;">
                     <div class="interactiveContainer">
@@ -22,14 +22,37 @@
             </form>
         </main>
         <footer>
+            <form th:each="item : ${tradePool}" action="/shop/fromCart" method="post">
+                <input type="hidden" name="petID" th:value="${petID}" />
+                <button type="submit" name="itemID" th:value="${item.getID()}" style="border: none; background: none; padding: 0;">
+                    <div class="interactiveContainer">
+                        <div class="smallImageContainer">
+                            <img class="small" th:src="@{${item.getImagePath()}}" th:alt="${item.getName()}" />
+                        </div>
+                        <h3 class="name" th:text="${item.getName()}"></h3>
+                    </div>
+                </button>
+            </form>
             <div class="panel">
+                <form th:if="${!tradePool.isEmpty()}" action="/shop/buyItems" method="post">
+                    <input type="hidden" name="petID" th:value="${petID}">
+                    <button type="submit" class="confirmButton">BUY</button>
+                </form>
+                <a th:if="${tradePool.isEmpty()}" class="deadButton">BUY</a>
+
                 <a th:href="@{/pets}" class="navButton">PETS</a>
+
                 <form th:if="${petID != null}" action="/pet/view" method="get">
                     <input type="hidden" name="petID" th:value="${petID}">
                     <button type="submit" class="navButton">PET</button>
                 </form>
                 <a th:if="${petID == null}" class="deadButton">PET</a>
-                <a th:href="@{/home}" class="quitButton">HOME</a>
+
+                <form th:if="${!tradePool.isEmpty()}" action="/shop/clearCart" method="post">
+                    <input type="hidden" name="petID" th:value="${petID}">
+                    <button type="submit" class="quitButton">CLEAR</button>
+                </form>
+                <a th:if="${tradePool.isEmpty()}" class="deadButton">CLEAR</a>
             </div>
         </footer>
     </body>

@@ -5,6 +5,7 @@ import com.greenfoxacademy.tamagochi.model.pets.Pet;
 import com.greenfoxacademy.tamagochi.model.pets.PetType;
 import com.greenfoxacademy.tamagochi.service.ItemService;
 import com.greenfoxacademy.tamagochi.service.PetService;
+import com.greenfoxacademy.tamagochi.util.Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,12 +57,38 @@ public class PetController {
 
         Optional<Pet> optPet = petService.getPetRepo().getPet(petID);
         Optional<Item> optItem = itemService.getItemRepo().getItem(itemID);
+
         if (optPet.isPresent() && optItem.isPresent()) {
-            optPet.get().use(optItem.get());
-            itemService.getItemRepo().getItems().remove(optItem.get());
+            Pet pet = optPet.get();
+            Item item = optItem.get();
+
+            pet.use(item);
+            itemService.getItemRepo().getItems().remove(item);
+            item = null;
+
+            if(!pet.isAlive()) {
+                petService.getPetRepo().getPets().remove(pet);
+                pet = null;
+                return "redirect:/pets";
+            }
         }
         return "redirect:/pet/view?petID=" + petID;
     }
+
+    @GetMapping("/pet/createForm")
+    public String createForm(Model model) {
+        model.addAttribute("typePool", PetType.getTypes());
+        model.addAttribute("randomName", Util.getRandomName());
+        model.addAttribute("randomDescription", Util.getRandomDescription());
+        return "createPet";
+    }
+
+    @GetMapping("/pet/createBlank")
+    public String createBlankForm(Model model) {
+        model.addAttribute("typePool", PetType.getTypes());
+        return "createPet";
+    }
+
 
 
     @PostMapping("/pet/create")
@@ -74,6 +101,28 @@ public class PetController {
         model.addAttribute("petsPool", petService.getPetRepo().getPets());
         model.addAttribute("typePool", PetType.getTypes());
         return "redirect:/pets";
+    }
+
+    @GetMapping("/pet/removeForm")
+    public String removeForm(Model model) {
+
+        model.addAttribute("petsPool", petService.getPetRepo().getPets());
+        return "remove";
+    }
+
+    @PostMapping("/pet/removePet")
+    public String removePet(@RequestParam("petID") int petID) {
+
+        if (petService.getPetRepo().getPet(petID).isPresent()) {
+            petService.getPetRepo().getPets().remove(petService.getPetRepo().getPet(petID).get());
+        }
+        return "redirect:/pet/removeForm";
+    }
+
+    @PostMapping("/pet/removeAll")
+    public String removeAll() {
+        petService.getPetRepo().getPets().clear();
+        return "redirect:/pet/createForm";
     }
 
     @GetMapping("/pets")

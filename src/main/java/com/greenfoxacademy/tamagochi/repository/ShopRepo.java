@@ -11,8 +11,10 @@ import java.util.Optional;
 public class ShopRepo {
 
     private List<Item> shopItems;
+    private List<Item> tradePool;
 
     public ShopRepo() {
+        this.tradePool = new ArrayList<>();
         this.shopItems = new ArrayList<>();
         shopItems.add(new Ball());
         shopItems.add(new Brush());
@@ -81,9 +83,10 @@ public class ShopRepo {
     }
 
     public List<Item> getShopItems() { return this.shopItems; }
+    public List<Item> getTradePool() { return this.tradePool; }
 
-    public Optional<Item> getItem(int itemID) {
-        return shopItems.stream()
+    public Optional<Item> getItem(int itemID, List<Item> input) {
+        return input.stream()
                 .filter(i -> i.getID() == itemID)
                 .findFirst();
     }

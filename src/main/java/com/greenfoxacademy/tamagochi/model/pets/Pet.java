@@ -15,6 +15,7 @@ public abstract class Pet implements PetActions {
 
     private int id;
     private String name;
+    private boolean isAlive;
     private int hunger;
     private int happiness;
     private int dirtiness;
@@ -47,6 +48,7 @@ public abstract class Pet implements PetActions {
                ) {
         initId();
         this.name = name;
+        this.isAlive = true;
         this.maxHappiness = maxHappiness;
         this.maxHunger = maxHunger;
         this.maxTiredness = maxTiredness;
@@ -77,6 +79,7 @@ public abstract class Pet implements PetActions {
         this.dirtiness += STAINING;
         this.happiness++;
         correctStats();
+        this.isAlive = this.checkLifeConditions();
     }
 
     @Override
@@ -84,6 +87,7 @@ public abstract class Pet implements PetActions {
         this.dirtiness -= washing.wash();
         this.happiness -= UNHAPPINESS;
         correctStats();
+        this.isAlive = this.checkLifeConditions();
     }
 
     @Override
@@ -94,6 +98,7 @@ public abstract class Pet implements PetActions {
         this.happiness++;
         this.dirtiness++;
         correctStats();
+        this.isAlive = this.checkLifeConditions();
     }
 
     @Override
@@ -103,6 +108,7 @@ public abstract class Pet implements PetActions {
         this.hunger += STARVATION;
         this.dirtiness += STAINING;
         correctStats();
+        this.isAlive = this.checkLifeConditions();
     }
 
     public void use(Item item) {
@@ -129,5 +135,9 @@ public abstract class Pet implements PetActions {
 
         if (this.tiredness > this.maxTiredness) { this.tiredness = this.maxTiredness; }
         if (this.tiredness < 0) { this.tiredness = 0; }
+    }
+
+    private boolean checkLifeConditions() {
+        return !(this.hunger == this.maxHunger && this.tiredness == this.maxTiredness);
     }
 }

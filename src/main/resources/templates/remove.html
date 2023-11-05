@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="~{headerfragment.html :: header}"></div>
+    <title>Remove Pet</title>
+</head>
+<body>
+<header>
+    <h1 th:if="${petsPool.isEmpty()}" class="logo">You have no pets yet!</h1>
+    <h1 th:unless="${petsPool.isEmpty()}" class="logo">Pets to remove:</h1>
+</header>
+<main>
+    <form th:each="pet : ${petsPool}" action="/pet/removePet" method="post">
+        <button type="submit" name="petID" th:value="${pet.getId()}" style="border: none; background: none; padding: 0;">
+            <div class="petDisplay">
+                <div class="imageContainer">
+                    <img th:src="@{${pet.getImage()}}" th:alt="${pet.getName()}" />
+                </div>
+                <h3 class="name" th:text="${pet.getName()}"></h3>
+                <h4 class="name" th:text="${pet.getType()}"></h4>
+                <p class="happiness" th:text="${pet.getDescription}"></p>
+            </div>
+        </button>
+    </form>
+
+    <div th:if="${petsPool.size() % 2 == 1}" class="container" style="border: 0px white;"></div>
+    <div class="container" th:if="${petsPool.size() == 0}" style="border: 0px white;"></div>
+    <div class="container" th:if="${petsPool.size() == 0}" style="border: 0px white;"></div>
+
+</main>
+<footer>
+    <div class="panel">
+        <a th:href="@{/pets}" class="navButton">PETS</a>
+        <form action="/pet/removeAll" method="post">
+            <button type="submit" class="quitButton">DEL ALL</button>
+        </form>
+        <a class="emptyButton"></a>
+        <a class="emptyButton"></a>
+    </div>
+</footer>
+</body>
+</html>

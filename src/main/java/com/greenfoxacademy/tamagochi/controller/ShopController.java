@@ -1,5 +1,6 @@
 package com.greenfoxacademy.tamagochi.controller;
 
+import com.greenfoxacademy.tamagochi.model.items.Item;
 import com.greenfoxacademy.tamagochi.service.ItemService;
 import com.greenfoxacademy.tamagochi.service.ShopService;
 import org.springframework.stereotype.Controller;
@@ -27,14 +28,54 @@ public class ShopController {
 
         if (petID.isPresent()) { model.addAttribute("petID", petID.get()); }
         model.addAttribute("shopItemsPool", shopService.getShopRepo().getShopItems());
+        model.addAttribute("tradePool", shopService.getShopRepo().getTradePool());
         return "viewShop";
     }
 
-    @PostMapping("/shop/buy")
-    public String buyItem(@RequestParam("petID") Optional<Integer> petID,
-                          @RequestParam("itemID") int itemID) {
-        itemService.getItemRepo().getItems().add(shopService.buyItem(itemID));
+    @PostMapping("/shop/toCart")
+    public String moveToCart(Model model,
+                             @RequestParam("petID") Optional<Integer> petID,
+                             @RequestParam("itemID") int itemID) {
+
+        shopService.moveToCart(itemID);
         if (petID.isPresent()) { return "redirect:/shop/view?petID=" + petID.get(); }
         return "redirect:/shop/view";
     }
+
+    @PostMapping("/shop/fromCart")
+    public String moveFromCart(Model model,
+                               @RequestParam("petID") Optional<Integer> petID,
+                               @RequestParam("itemID") int itemID) {
+
+        shopService.moveFromCart(itemID);
+        if (petID.isPresent()) { return "redirect:/shop/view?petID=" + petID.get(); }
+        return "redirect:/shop/view";
+    }
+
+    @PostMapping("/shop/buyItems")
+    public String buyItems(@RequestParam("petID") Optional<Integer> petID) {
+        for (Item i : shopService.getShopRepo().getTradePool()) {
+            itemService.getItemRepo().getItems().add(i);
+            i = null;
+        }
+        shopService.getShopRepo().getTradePool().clear();
+        if (petID.isPresent()) {
+            return "redirect:/shop/view?petID=" + petID.get();
+        }
+        return "redirect:/shop/view";
+    }
+
+    @PostMapping("/shop/clearCart")
+    public String clearCart(@RequestParam("petID") Optional<Integer> petID) {
+        for (Item i : shopService.getShopRepo().getTradePool()) {
+            shopService.getShopRepo().getShopItems().add(i);
+            i = null;
+        }
+        shopService.getShopRepo().getTradePool().clear();
+        if (petID.isPresent()) {
+            return "redirect:/shop/view?petID=" + petID.get();
+        }
+        return "redirect:/shop/view";
+    }
+
 }

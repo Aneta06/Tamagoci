@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <div th:replace="~{headerfragment.html :: header}"></div>
+        <title>View Pet</title>
+    </head>
+    <body>
+        <header>
+            <h1 th:if="${petsPool.isEmpty()}" class="logo">You have no pets yet!</h1>
+            <h1 th:unless="${petsPool.isEmpty()}" class="logo">Your current pets:</h1>
+        </header>
+        <main>
+            <form th:each="pet : ${petsPool}" action="/pet/view" method="get">
+                <button type="submit" name="petID" th:value="${pet.getId()}" style="border: none; background: none; padding: 0;">
+                    <div class="petDisplay">
+                        <div class="imageContainer">
+                            <img th:src="@{${pet.getImage()}}" th:alt="${pet.getName()}" />
+                        </div>
+                        <h3 class="name" th:text="${pet.getName()}"></h3>
+                        <h4 class="name" th:text="${pet.getType()}"></h4>
+                        <p class="happiness" th:text="${pet.getDescription}"></p>
+                    </div>
+                </button>
+            </form>
+            <div class="container">
+                <h1 class="name">Create a new pet! :)</h1>
+                <form action="/pet/create" method="post">
+                    <select name="type" th:placeholder="'PET TYPE'" required>
+                        <option th:each="type : ${typePool}" th:value="${type}" th:text="${type}"></option>
+                    </select>
+                    <input name="name" type="text" required placeholder="Name">
+                    <input name="description" type="text" required placeholder="Description">
+                    <input type="submit" value="CREATE!">
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

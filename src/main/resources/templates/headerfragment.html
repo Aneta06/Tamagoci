@@ -17,6 +17,7 @@
 
     header, main, footer {
         display: block;
+        min-width: 28rem;
         max-width: 56rem;
         background-color: white;
         padding: 1rem;
@@ -40,6 +41,15 @@
         border: 1px solid lightgray;
     }
 
+    .petDisplay {
+        background-color: white;
+        width: 26rem;
+        height: 32rem;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0.4rem;
+        border: 1px solid lightgray;
+    }
 
     .imageContainer {
         display: flex;
@@ -64,7 +74,8 @@
         border: 1px solid lightgray;
     }
 
-    .interactiveContainer:hover, .interactiveContainer:active, .interactiveContainer:focus {
+    .interactiveContainer:hover, .interactiveContainer:active, .interactiveContainer:focus,
+    .petDisplay:hover, .petDisplay:active, .petDisplay:focus{
         box-shadow: 0 0 5px 2px lightskyblue;
         border: 1px solid white;
         cursor: pointer;
@@ -91,19 +102,19 @@
         display: inline-block;
     }
 
-    input[type="checkbox"] {
-        width: 3rem;
-        height: 3rem;
-        vertical-align: middle;
-    }
-
     form {
         display: inline-block;
     }
 
     form > * {
         padding: 1rem;
-        margin: 0.1rem;
+        display: block;
+    }
+
+    form > input, select {
+        max-width: 18rem;
+        margin: 1.4rem;
+        font-size: 2rem;
     }
 
     img {
@@ -116,16 +127,6 @@
         font-style: normal;
         color: darkslategray;
         margin: 1.3rem;
-    }
-
-    .productPrice {
-        font-weight: bold;
-        color: green;
-    }
-
-    .stockStatus {
-        font-size: 0.8rem;
-        font-weight: lighter;
     }
 
     .logo {

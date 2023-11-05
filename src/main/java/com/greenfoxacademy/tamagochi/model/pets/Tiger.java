@@ -19,7 +19,7 @@ public class Tiger extends Pet {
                 new Random().nextInt(PetsStats.TIGER_MAX_HAPPINESS),
                 new Random().nextInt(PetsStats.TIGER_MAX_TIRENESS),
                 new Random().nextInt(PetsStats.TIGER_MAX_DIRTINESS),
-                "images/tiger.jpg",
+                "/images/tiger.jpg",
                 PetType.TIGER,
                 description);
     }

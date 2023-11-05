@@ -14,7 +14,7 @@ public class Dog extends Pet {
                 new Random().nextInt(PetsStats.DOG_MAX_HAPPINESS),
                 new Random().nextInt(PetsStats.DOG_MAX_TIRENESS),
                 new Random().nextInt(PetsStats.DOG_MAX_DIRTINESS),
-                "images/dog.jpg",
+                "/images/dog.jpg",
                 PetType.DOG,
                 description);
     }

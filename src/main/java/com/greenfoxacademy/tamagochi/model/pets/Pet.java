@@ -2,8 +2,6 @@ package com.greenfoxacademy.tamagochi.model.pets;
 
 import com.greenfoxacademy.tamagochi.model.*;
 import com.greenfoxacademy.tamagochi.model.items.Item;
-import com.greenfoxacademy.tamagochi.model.pets.PetType;
-import com.greenfoxacademy.tamagochi.repository.ItemRepo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,12 +18,12 @@ public abstract class Pet implements PetActions {
     private int hunger;
     private int happiness;
     private int dirtiness;
-    private int tireness;
+    private int tiredness;
     private String image;
     private PetType type;
     private int maxHappiness;
     private int maxHunger;
-    private int maxTireness;
+    private int maxTiredness;
     private int maxDirtiness;
     private String description;
 
@@ -51,12 +49,12 @@ public abstract class Pet implements PetActions {
         this.name = name;
         this.maxHappiness = maxHappiness;
         this.maxHunger = maxHunger;
-        this.maxTireness = maxTiredness;
+        this.maxTiredness = maxTiredness;
         this.maxDirtiness = maxDirtiness;
         this.hunger = hunger;
         this.happiness = happiness;
         this.dirtiness = dirtiness;
-        this.tireness = tiredness;
+        this.tiredness = tiredness;
         this.image = imag;
         this.type = type;
         this.description = description;
@@ -77,6 +75,7 @@ public abstract class Pet implements PetActions {
     public void eat(Edible edible) {
         this.hunger -= edible.disposeFood();
         this.dirtiness += STAINING;
+        this.happiness++;
         correctStats();
     }
 
@@ -89,14 +88,18 @@ public abstract class Pet implements PetActions {
 
     @Override
     public void sleep() {
-        this.tireness -= new Random().nextInt(3) + 1;
+        if (this.tiredness < 4) { return; }
+        this.tiredness -= new Random().nextInt(3) + 1;
+        this.hunger += STARVATION;
+        this.happiness++;
+        this.dirtiness++;
         correctStats();
     }
 
     @Override
     public void play(Entertaining entertaining) {
         this.happiness += entertaining.entertain();
-        this.tireness += WEARINESS;
+        this.tiredness += WEARINESS;
         this.hunger += STARVATION;
         this.dirtiness += STAINING;
         correctStats();
@@ -124,7 +127,7 @@ public abstract class Pet implements PetActions {
         if (this.dirtiness > this.maxDirtiness) { this.dirtiness = this.maxDirtiness; }
         if (this.dirtiness < 0) { this.dirtiness = 0; }
 
-        if (this.tireness > this.maxTireness) { this.tireness = this.maxTireness; }
-        if (this.tireness < 0) { this.tireness = 0; }
+        if (this.tiredness > this.maxTiredness) { this.tiredness = this.maxTiredness; }
+        if (this.tiredness < 0) { this.tiredness = 0; }
     }
 }

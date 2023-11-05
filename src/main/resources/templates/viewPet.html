@@ -58,7 +58,16 @@
                 </button>
             </form>
             <div class="panel">
-                <a th:href="@{/pets}" class="quitButton">BACK</a>
+                <form action="/pet/train" method="get">
+                    <button type="submit" name="petID" th:value="${petID}" class="actionButton">TRAIN</button>
+                </form>
+                <form action="/pet/sleep" method="post">
+                    <button type="submit" name="petID" th:value="${petID}" class="actionButton">SLEEP</button>
+                </form>
+                <form action="/shop/view" method="get">
+                    <button type="submit" name="petID" th:value="${petID}" class="navButton">SHOP</button>
+                </form>
+                <a th:href="@{/pets}" class="quitButton">PETS</a>
             </div>
         </footer>
     </body>

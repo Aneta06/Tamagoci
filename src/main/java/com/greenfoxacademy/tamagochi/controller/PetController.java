@@ -5,7 +5,6 @@ import com.greenfoxacademy.tamagochi.model.pets.Pet;
 import com.greenfoxacademy.tamagochi.model.pets.PetType;
 import com.greenfoxacademy.tamagochi.service.ItemService;
 import com.greenfoxacademy.tamagochi.service.PetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,13 @@ import java.util.Optional;
 @Controller
 public class PetController {
 
-    @Autowired
-    PetService petService;
-    @Autowired
-    ItemService itemService;
+    private final PetService petService;
+    private final ItemService itemService;
+
+    public PetController(PetService petService, ItemService itemService) {
+        this.petService = petService;
+        this.itemService = itemService;
+    }
 
     @GetMapping("/pet/view")
     public String viewPet(Model model, @RequestParam("petID") int petID) {
@@ -36,16 +38,16 @@ public class PetController {
             model.addAttribute("maxHunger", optPet.get().getMaxHunger());
             model.addAttribute("happiness", optPet.get().getHappiness());
             model.addAttribute("maxHappiness", optPet.get().getMaxHappiness());
-            model.addAttribute("tiredness", optPet.get().getTireness());
-            model.addAttribute("maxTiredness", optPet.get().getMaxTireness());
+            model.addAttribute("tiredness", optPet.get().getTiredness());
+            model.addAttribute("maxTiredness", optPet.get().getMaxTiredness());
             model.addAttribute("dirtiness", optPet.get().getDirtiness());
             model.addAttribute("maxDirtiness", optPet.get().getMaxDirtiness());
 
-            model.addAttribute("itemPool", itemService.getItems().getItems());
+            model.addAttribute("itemPool", itemService.getItemRepo().getItems());
         } else {
             model.addAttribute("name", "Nothing found");
         }
-        return "viewpet";
+        return "viewPet";
     }
 
     @PostMapping("/pet/use")
@@ -53,10 +55,10 @@ public class PetController {
                           @RequestParam("itemID") int itemID) {
 
         Optional<Pet> optPet = petService.getPetRepo().getPet(petID);
-        Optional<Item> optItem = itemService.getItems().getItem(itemID);
+        Optional<Item> optItem = itemService.getItemRepo().getItem(itemID);
         if (optPet.isPresent() && optItem.isPresent()) {
             optPet.get().use(optItem.get());
-            itemService.getItems().getItems().remove(optItem.get());
+            itemService.getItemRepo().getItems().remove(optItem.get());
         }
         return "redirect:/pet/view?petID=" + petID;
     }
@@ -81,5 +83,11 @@ public class PetController {
         return "pets";
     }
 
-
+    @PostMapping("/pet/sleep")
+    public String sleep(@RequestParam("petID") int petID) {
+        if (petService.getPetRepo().getPet(petID).isPresent()) {
+            petService.getPetRepo().getPet(petID).get().sleep();
+        }
+        return "redirect:/pet/view?petID=" + petID;
+    }
 }

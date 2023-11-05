@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <div th:replace="~{headerfragment.html :: header}"></div>
+        <title>View Pet</title>
+    </head>
+    <body>
+        <header>
+            <h1 class="logo">Item Shop</h1>
+        </header>
+        <main>
+            <form th:each="item : ${shopItemsPool}" action="/shop/buy" method="post">
+                <input type="hidden" name="petID" th:value="${petID}" />
+                <button type="submit" name="itemID" th:value="${item.getID()}" style="border: none; background: none; padding: 0;">
+                    <div class="interactiveContainer">
+                        <div class="smallImageContainer">
+                            <img class="small" th:src="@{${item.getImagePath()}}" th:alt="${item.getName()}" />
+                        </div>
+                        <h3 class="name" th:text="${item.getName()}"></h3>
+                    </div>
+                </button>
+            </form>
+        </main>
+        <footer>
+            <div class="panel">
+                <a th:href="@{/pets}" class="navButton">PETS</a>
+                <form th:if="${petID != null}" action="/pet/view" method="get">
+                    <input type="hidden" name="petID" th:value="${petID}">
+                    <button type="submit" class="navButton">PET</button>
+                </form>
+                <a th:if="${petID == null}" class="deadButton">PET</a>
+                <a th:href="@{/home}" class="quitButton">HOME</a>
+            </div>
+        </footer>
+    </body>
+</html>

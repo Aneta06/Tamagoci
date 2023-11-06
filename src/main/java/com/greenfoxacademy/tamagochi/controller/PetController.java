@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
@@ -44,6 +45,8 @@ public class PetController {
             model.addAttribute("dirtiness", optPet.get().getDirtiness());
             model.addAttribute("maxDirtiness", optPet.get().getMaxDirtiness());
 
+
+            model.addAttribute("pet", petService.getPetRepo().getPet(petID));
             model.addAttribute("itemPool", itemService.getItemRepo().getItems());
         } else {
             model.addAttribute("name", "Nothing found");
@@ -88,8 +91,6 @@ public class PetController {
         model.addAttribute("typePool", PetType.getTypes());
         return "createPet";
     }
-
-
 
     @PostMapping("/pet/create")
     public String createPet(Model model,

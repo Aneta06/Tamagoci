@@ -6,7 +6,7 @@
     </head>
     <body>
         <header>
-            <h1 th:text="${name}" class="logo"></h1>
+            <h1 th:text="${name}" class="logo" th:object="${pet}"></h1>
         </header>
         <main>
             <div class="container">
@@ -46,7 +46,7 @@
             </div>
         </main>
         <footer>
-            <form th:each="item : ${itemPool}" action="/pet/use" method="post">
+            <form th:each="item : ${itemPool}" action="/pet/use" method="post" >
                 <input type="hidden" name="petID" th:value="${petID}" />
                 <button type="submit" name="itemID" th:value="${item.getID()}" style="border: none; background: none; padding: 0;">
                     <div class="interactiveContainer">
